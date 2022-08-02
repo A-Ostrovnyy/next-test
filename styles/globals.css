@@ -1,32 +1,33 @@
 html,
 body {
-	margin: 0;
-	padding: 0;
+  margin: 0;
+  padding: 0;
 
-	color: var(--black);
-	background: var(--grey);
+  color: var(--black);
+  background: var(--grey);
 
-	font-family: "Noto Sans", sans-serif;
+  font-family: "Noto Sans", sans-serif;
 }
 
 a {
-	text-decoration: none;
+  text-decoration: none;
 
-	color: inherit;
+  color: inherit;
 }
 
 * {
-	box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 :root {
-	--black: #3B434E;
-	--grey-light: #EBEBEB;
-	--white: #FFF;
-	--primary: #7653FC;
-	--primary-hover: #6344DF;
-	--red: #FC836D;
-	--green: #1DC37E;
-	--green-light: #C8F8E4;
-	--grey: #F5F6F8;
+  --black: #3b434e;
+  --grey-light: #ebebeb;
+  --grey-dark: #787d85;
+  --white: #fff;
+  --primary: #7653fc;
+  --primary-hover: #6344df;
+  --red: #fc836d;
+  --green: #1dc37e;
+  --green-light: #c8f8e4;
+  --grey: #f5f6f8;
 }
