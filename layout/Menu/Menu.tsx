@@ -1,5 +1,6 @@
 import { FC, useContext, useEffect } from 'react';
 import cn from 'classnames';
+import Link from 'next/link';
 
 import { AppContext } from '../../context/app.context';
 import { firstLevelMenuItem, PageItem } from '../../interfaces/menu.interface';
@@ -49,14 +50,16 @@ export const Menu: FC = () => {
         <>
             {firstLevelMenu.map((menuItem) => (
                 <div key={menuItem.route}>
-                    <a href={`/${menuItem.route}`}>
-                        <div className={cn(styles.firstLevel, {
-                            [styles.firstLevelActive]: menuItem.id === firstCategory
-                        })}>
-                            {menuItem.icon}
-                            <span>{menuItem.name}</span>
-                        </div>
-                    </a>
+                    <Link href={`/${menuItem.route}`}>
+                        <a>
+                            <div className={cn(styles.firstLevel, {
+                                [styles.firstLevelActive]: menuItem.id === firstCategory
+                            })}>
+                                {menuItem.icon}
+                                <span>{menuItem.name}</span>
+                            </div>
+                        </a>
+                    </Link>
                     {menuItem.id === firstCategory && buildSecondLevel(menuItem)}
                 </div>
             ))}
@@ -81,11 +84,13 @@ export const Menu: FC = () => {
     const buildThirdLevel = (pages: PageItem[], route: string) => (
         <>
             {pages.map((page) => (
-                <a key={page._id} href={`/${route}/${page.alias}`} className={cn(styles.thirdLevel, {
-                    [styles.thirdLevelActive]: false
-                })} >
-                    {page.category}
-                </a>
+                <Link key={page._id} href={`/${route}/${page.alias}`}>
+                    <a className={cn(styles.thirdLevel, {
+                        [styles.thirdLevelActive]: false
+                    })} >
+                        {page.category}
+                    </a>
+                </Link>
             ))}
         </>
     )
