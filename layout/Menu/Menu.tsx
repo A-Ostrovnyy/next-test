@@ -1,52 +1,18 @@
-import { FC, useContext, useEffect } from 'react';
+import { FC, useContext } from 'react';
 import cn from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 import { AppContext } from '../../context/app.context';
 import { firstLevelMenuItem, PageItem } from '../../interfaces/menu.interface';
-import { TopLevelCategory } from '../../interfaces/page.interface';
+import { firstLevelMenu } from '../../helpers/helpers';
 
-import CoursesIcon from './icons/courses.svg';
-import ServicesIcon from './icons/services.svg';
-import BooksIcon from './icons/books.svg';
-import ProductsIcon from './icons/products.svg';
 import styles from './Menu.module.css';
 
-const firstLevelMenu: firstLevelMenuItem[] = [
-    {
-        route: 'courses',
-        name: 'Курси',
-        icon: <CoursesIcon />,
-        id: TopLevelCategory.Courses
-    },
-    {
-        route: 'services',
-        name: 'Сервіси',
-        icon: <ServicesIcon />,
-        id: TopLevelCategory.Services
-    },
-    {
-        route: 'books',
-        name: 'Книжки',
-        icon: <BooksIcon />,
-        id: TopLevelCategory.Books
-    },
-    {
-        route: 'products',
-        name: 'Продукти',
-        icon: <ProductsIcon />,
-        id: TopLevelCategory.Products
-    }
-];
 
 export const Menu: FC = () => {
     const { menu, setMenu, firstCategory } = useContext(AppContext);
     const router = useRouter();
-
-    useEffect(() => {
-        setMenu && setMenu([]);
-    });
 
     const openSecondLevel = (secondCategory: string) => {
         setMenu && setMenu(menu.map((m) => {
