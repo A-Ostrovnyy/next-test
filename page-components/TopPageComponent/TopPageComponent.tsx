@@ -24,7 +24,17 @@ export const TopPageComponent = ({ page, products, firstCategory }: TopPageCompo
             </div>
             {firstCategory === TopLevelCategory.Courses && page.hh && <HhData {...page.hh} />}
             {page.advantages && page.advantages.length > 0 &&
-                <Advantages advantages={page.advantages} />
+                <>
+                    <Htag tag='h2'>Advantages</Htag>
+                    <Advantages advantages={page.advantages} />
+                </>
+            }
+            {
+                page.seoText && <p>{page.seoText}</p>
+            }
+            <Htag tag='h2'>Skills</Htag>
+            {
+                page.tags.map((t) => <Tag key={t} color={TagColor.primary}>{t}</Tag>)
             }
         </div>
     )
