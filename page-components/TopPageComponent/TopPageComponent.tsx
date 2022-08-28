@@ -30,7 +30,7 @@ export const TopPageComponent = ({ page, products, firstCategory }: TopPageCompo
                 </>
             }
             {
-                page.seoText && <p>{page.seoText}</p>
+                page.seoText && <div className={styles.seo} dangerouslySetInnerHTML={{ __html: page.seoText }} />
             }
             <Htag tag='h2'>Skills</Htag>
             {
