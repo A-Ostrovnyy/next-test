@@ -1,21 +1,32 @@
-import { Advantages, HhData, Htag, Tag } from '../../components';
+import { useReducer } from 'react';
+
+import { Advantages, HhData, Htag, Sort, Tag } from '../../components';
 import { TagColor, TagSize } from '../../components/Tag/Tag.props';
+import { TopLevelCategory } from '../../interfaces/page.interface';
+import { SortEnum } from '../../components/Sort/Sort.props';
 
 import { TopPageComponentProps } from './TopPageComponent.props';
 import styles from './TopPageComponent.module.css';
-import { TopLevelCategory } from '../../interfaces/page.interface';
+import { SortReducer } from './sort.reducer';
 
 
 export const TopPageComponent = ({ page, products, firstCategory }: TopPageComponentProps) => {
+
+    const [{ products: sortedProducts, sort }, dispatchSort] = useReducer(SortReducer, { products, sort: SortEnum.Rating });
+
+    const handleSort = (sort: SortEnum): void => {
+        dispatchSort({ type: sort });
+    };
+
     return (
         <div className={styles.wrapper}>
             <div className={styles.title}>
                 <Htag tag='h1'>{page.title}</Htag>
                 {products && <Tag color={TagColor.grey} size={TagSize.medium}>{products.length}</Tag>}
-                <span>Sort</span>
+                <Sort sort={sort} setSort={handleSort} />
             </div>
             <div>
-                {products && products.map((p) => (<div key={p._id}>{p.title}</div>))}
+                {sortedProducts && sortedProducts.map((p) => (<div key={p._id}>{p.title}</div>))}
             </div>
 
             <div className={styles.hhTitle}>
