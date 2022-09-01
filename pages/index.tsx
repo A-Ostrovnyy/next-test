@@ -2,7 +2,7 @@ import { GetStaticProps } from 'next';
 import { useState } from 'react';
 import axios from 'axios';
 
-import { Button, P, Htag, Tag, Rating } from '../components';
+import { Button, P, Htag, Tag, Rating, Input } from '../components';
 import { ButtonAppearance, ButtonArrow } from '../components/Button/Button.props';
 import { PSize } from '../components/P/P.props';
 import { TagColor, TagSize } from '../components/Tag/Tag.props';
@@ -36,6 +36,7 @@ function Home({ menu }: HomeProps): JSX.Element {
       <ul>
         {menu.map((item) => <li key={item._id.secondCategory}>{item._id.secondCategory}</li>)}
       </ul>
+      <Input />
     </>
   );
 }
