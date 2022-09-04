@@ -9,7 +9,7 @@ import { TagColor } from '../Tag/Tag.props';
 import { P } from '../P/P';
 import { Button } from '../Button/Button';
 import { ButtonAppearance, ButtonArrow } from '../Button/Button.props';
-import { priceDollar } from '../../helpers/helpers';
+import { declOfNum, priceDollar } from '../../helpers/helpers';
 import { Htag } from '../Htag/Htag';
 import { Divider } from '../Divider/Divider';
 
@@ -20,7 +20,13 @@ export const Product: FC<ProductProps> = ({ product, className, ...props }) => {
     return (
         <Card>
             <div className={styles.logo}>
-                <Image src={process.env.NEXT_PUBLIC_DOMAIN + product.image} alt={product.title} />
+                <Image
+                    src={process.env.NEXT_PUBLIC_DOMAIN + product.image}
+                    alt={product.title}
+                    loading="lazy"
+                    width={70}
+                    height={70}
+                />
             </div>
             {/* <Htag tag='h2' className={styles.title}>{product.title}</Htag> */}
             <div className={styles.title}>{product.title}</div>
@@ -38,10 +44,20 @@ export const Product: FC<ProductProps> = ({ product, className, ...props }) => {
             </div>
             <div className={styles.priceTitle}>price</div>
             <div className={styles.creditTitle}>credit</div>
-            <div className={styles.ratingTitle}>{product.reviewCount} reviews</div>
+            <div className={styles.ratingTitle}>
+                {declOfNum(product.reviewCount, ['review', 'reviews', 'reviews'])}
+            </div>
             <Divider className={styles.hr} />
             <P className={styles.decr}>{product.description}</P>
-            <div className={styles.features}>features</div>
+            <div className={styles.features}>
+                {product.characteristics.map((c) => (
+                    <div key={c.name} className={styles.characteristic}>
+                        <span className={styles.characteristicName}>{c.name}</span>
+                        <span className={styles.characteristicDots}></span>
+                        <span className={styles.characteristicValue}>{c.value}</span>
+                    </div>
+                ))}
+            </div>
             <section className={styles.advBlock}>
                 {
                     product.advantages &&

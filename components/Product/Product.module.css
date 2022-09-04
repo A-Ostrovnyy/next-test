@@ -112,8 +112,9 @@
 
 .disadvantages,
 .advantages {
-  border-left: 2px solid;
+  border-left: 3px solid;
   padding-left: 15px;
+  border-radius: 2px;
 }
 
 .advantages {
@@ -123,4 +124,30 @@
 .disadvantages {
   margin-top: 20px;
   border-color: (--red);
+}
+
+.characteristic {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 10px;
+  padding-right: 60px;
+  align-items: baseline;
+}
+
+.characteristicName {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 32px;
+}
+
+.characteristicValue {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 22px;
+  text-align: right;
+}
+
+.characteristicDots {
+  margin: 0 0 5px;
+  border-bottom: 1px dashed var(--grey-light);
 }
