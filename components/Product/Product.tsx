@@ -48,7 +48,7 @@ export const Product: FC<ProductProps> = ({ product, className, ...props }) => {
                 {declOfNum(product.reviewCount, ['review', 'reviews', 'reviews'])}
             </div>
             <Divider className={styles.hr} />
-            <P className={styles.decr}>{product.description}</P>
+            <P className={styles.description}>{product.description}</P>
             <div className={styles.features}>
                 {product.characteristics.map((c) => (
                     <div key={c.name} className={styles.characteristic}>
@@ -74,7 +74,7 @@ export const Product: FC<ProductProps> = ({ product, className, ...props }) => {
                     </div>
                 }
             </section>
-            <Divider className={styles.hr} />
+            <Divider className={cn(styles.hr, styles.hr2)} />
             <div className={styles.actions}>
                 <Button appearance={ButtonAppearance.primary} >Learn more</Button>
                 <Button
