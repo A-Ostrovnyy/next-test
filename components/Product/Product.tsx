@@ -17,6 +17,7 @@ import { Divider } from '../Divider/Divider';
 import { ProductProps } from './Product.props';
 import styles from './Product.module.css';
 import { Review } from '../Review/Review';
+import { ReviewForm } from '../ReviewForm/ReviewForm';
 
 export const Product: FC<ProductProps> = ({ product, className, ...props }) => {
 
@@ -95,18 +96,21 @@ export const Product: FC<ProductProps> = ({ product, className, ...props }) => {
                     >Reviews</Button>
                 </div>
             </Card>
-            {
-                product.reviews.length > 0 &&
-                <Card color={CardColor.blue} className={cn(styles.reviews, {
-                    [styles.opened]: isReviewOpened,
-                    [styles.closed]: !isReviewOpened
-                })}>
-                    {
-                        product.reviews.map((r) => <Review key={r._id} review={r} />)
-                    }
-                </Card>
-            }
 
+            <Card color={CardColor.blue} className={cn(styles.reviews, {
+                [styles.opened]: isReviewOpened,
+                [styles.closed]: !isReviewOpened
+            })}>
+                {
+                    product.reviews.map((r) => (
+                        <>
+                            <Review key={r._id} review={r} />
+                            <Divider />
+                        </>
+                    ))
+                }
+                <ReviewForm productId={product._id} />
+            </Card>
         </>
     )
 }
