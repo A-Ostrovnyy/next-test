@@ -1,6 +1,7 @@
-import { FC } from 'react';
+import { useState } from 'react';
 import cn from 'classnames';
 import { useForm, Controller } from 'react-hook-form';
+import axios from 'axios';
 
 import { Rating } from '../Rating/Rating';
 import { Input } from '../Input/Input';
@@ -11,14 +12,35 @@ import { ButtonAppearance } from '../Button/Button.props';
 import CloseIcon from './close.svg';
 import { ReviewFormProps } from './ReviewForm.props';
 import styles from './ReviewForm.module.css';
-import { IReviewForm } from './ReviewForm.interface';
+import { IReviewForm, IReviewSentResponse } from './ReviewForm.interface';
+import { API } from '../../helpers/api';
 
-export const ReviewForm: FC<ReviewFormProps> = ({ productId, className, ...props }) => {
+export const ReviewForm = ({ productId, className, ...props }: ReviewFormProps): JSX.Element => {
 
-    const { register, control, handleSubmit, formState: { errors } } = useForm<IReviewForm>();
+    const { register, control, handleSubmit, formState: { errors }, reset } = useForm<IReviewForm>();
+    const [isSuccess, setIsSuccess] = useState<boolean>(false);
+    const [error, setError] = useState<string>('');
 
-    const handleFormSubmit = (data: IReviewForm) => {
+    const handleFormSubmit = async (formData: IReviewForm) => {
+        try {
+            const { data } = await axios.post<IReviewSentResponse>(API.review.createDemo, { ...formData, productId });
+            if (data.message) {
+                setIsSuccess(true);
+                reset();
+            } else {
+                setError('Something goes wrong');
+            };
+        } catch (err) {
+            setError(err as string);
+        }
+    }
 
+    const handleSuccessMessageClose = () => {
+        setIsSuccess(false);
+    }
+
+    const handleErrorMessageClose = () => {
+        setError('');
     }
 
     return (
@@ -96,13 +118,23 @@ export const ReviewForm: FC<ReviewFormProps> = ({ productId, className, ...props
                     <span className={styles.info}>* We have review moderation</span>
                 </div>
             </div>
-            <div className={styles.success}>
-                <div className={styles.successTitle}>Your review was sended</div>
-                <div className={styles.successTitle}>
-                    Thank you! Your review will be published after moderation
+            {
+                isSuccess &&
+                <div className={cn(styles.success, styles.panel)}>
+                    <div className={styles.successTitle}>Your review was sended</div>
+                    <div className={styles.successTitle}>
+                        Thank you! Your review will be published after moderation
+                    </div>
+                    <CloseIcon onClick={handleSuccessMessageClose} className={styles.close} />
                 </div>
-                <CloseIcon className={styles.close} />
-            </div>
+            }
+            {
+                error &&
+                <div className={cn(styles.error, styles.panel)}>
+                    Something goes wrong, please try again later
+                    <CloseIcon onClick={handleErrorMessageClose} className={styles.close} />
+                </div>
+            }
         </form>
     )
 }
