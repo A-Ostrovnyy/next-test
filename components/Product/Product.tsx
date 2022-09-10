@@ -1,4 +1,4 @@
-import { FC, useState, Fragment } from 'react';
+import { FC, useState, Fragment, useRef } from 'react';
 import cn from 'classnames';
 import Image from 'next/image';
 
@@ -26,9 +26,18 @@ export const Product: FC<ProductProps> = ({ product, className, ...props }) => {
     const handleReviewsVisibility = () => {
         setIsReviewOpened((prev) => !prev);
     }
+    const reviewRef = useRef<HTMLDivElement>(null);
+
+    const handleScrollToReview = (e) => {
+        setIsReviewOpened(true);
+        reviewRef.current?.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+    }
 
     return (
-        <>
+        <div className={cn(className)} {...props}>
             <Card>
                 <div className={styles.logo}>
                     <Image
@@ -56,7 +65,9 @@ export const Product: FC<ProductProps> = ({ product, className, ...props }) => {
                 <div className={styles.priceTitle}>price</div>
                 <div className={styles.creditTitle}>credit</div>
                 <div className={styles.ratingTitle}>
-                    {declOfNum(product.reviewCount, ['review', 'reviews', 'reviews'])}
+                    <a href="#ref" onClick={handleScrollToReview}>
+                        {declOfNum(product.reviewCount, ['review', 'reviews', 'reviews'])}
+                    </a>
                 </div>
                 <Divider className={styles.hr} />
                 <P className={styles.description}>{product.description}</P>
@@ -97,10 +108,14 @@ export const Product: FC<ProductProps> = ({ product, className, ...props }) => {
                 </div>
             </Card>
 
-            <Card color={CardColor.blue} className={cn(styles.reviews, {
-                [styles.opened]: isReviewOpened,
-                [styles.closed]: !isReviewOpened
-            })}>
+            <Card
+                color={CardColor.blue}
+                className={cn(styles.reviews, {
+                    [styles.opened]: isReviewOpened,
+                    [styles.closed]: !isReviewOpened
+                })}
+                ref={reviewRef}
+            >
                 {
                     product.reviews.map((r) => (
                         <Fragment key={r._id}>
@@ -111,6 +126,6 @@ export const Product: FC<ProductProps> = ({ product, className, ...props }) => {
                 }
                 <ReviewForm productId={product._id} />
             </Card>
-        </>
+        </div>
     )
 }
