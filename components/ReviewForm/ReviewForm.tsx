@@ -15,7 +15,7 @@ import { IReviewForm } from './ReviewForm.interface';
 
 export const ReviewForm: FC<ReviewFormProps> = ({ productId, className, ...props }) => {
 
-    const { register, control, handleSubmit } = useForm<IReviewForm>();
+    const { register, control, handleSubmit, formState: { errors } } = useForm<IReviewForm>();
 
     const handleFormSubmit = (data: IReviewForm) => {
 
@@ -25,13 +25,31 @@ export const ReviewForm: FC<ReviewFormProps> = ({ productId, className, ...props
         <form onSubmit={handleSubmit(handleFormSubmit)}>
             <div className={cn(styles.reviewForm, className)}>
                 <Input
-                    placeholder="name"
-                    {...register('name')}
+                    {
+                    ...register('name',
+                        {
+                            required: {
+                                value: true,
+                                message: 'Enter the name'
+                            }
+                        })
+                    }
+                    placeholder="Name"
+                    error={errors.name}
                 />
                 <Input
                     className={styles.title}
+                    {
+                    ...register('title',
+                        {
+                            required: {
+                                value: true,
+                                message: 'Enter the title'
+                            }
+                        })
+                    }
                     placeholder="Review title"
-                    {...register('title')}
+                    error={errors.title}
                 />
                 <div className={styles.rating}>
                     <span>Rating: </span>
@@ -43,15 +61,31 @@ export const ReviewForm: FC<ReviewFormProps> = ({ productId, className, ...props
                                 rating={field.value}
                                 setRating={field.onChange}
                                 ref={field.ref}
+                                error={errors.rating}
                                 isEditable
                             />
                         )}
+                        rules={{
+                            required: {
+                                value: true,
+                                message: 'Enter the rating'
+                            }
+                        }}
                     />
                 </div>
                 <TextArea
                     className={styles.description}
                     placeholder="Review text"
-                    {...register('description')}
+                    error={errors.description}
+                    {
+                    ...register('description',
+                        {
+                            required: {
+                                value: true,
+                                message: 'Enter description'
+                            }
+                        })
+                    }
                 />
                 <div className={styles.submit}>
                     <Button

@@ -5,7 +5,7 @@ import { RatingProps } from './Rating.props';
 import styles from './Rating.module.css';
 import StarIcon from './star.svg'
 
-export const Rating = forwardRef(({ isEditable = false, rating, setRating, ...props }: RatingProps, ref: ForwardedRef<HTMLDivElement>): JSX.Element => {
+export const Rating = forwardRef(({ isEditable = false, rating, error, setRating, ...props }: RatingProps, ref: ForwardedRef<HTMLDivElement>): JSX.Element => {
     const [ratingArray, setRatingArray] = useState<Array<JSX.Element>>(new Array(5).fill(<></>));
 
     const handleSpace = (i: number, e: KeyboardEvent<SVGElement>) => {
@@ -59,8 +59,15 @@ export const Rating = forwardRef(({ isEditable = false, rating, setRating, ...pr
     }, [rating])
 
     return (
-        <div {...props} ref={ref} >
+        <div
+            className={cn(styles.ratingWrapper, {
+                [styles.error]: error
+            })}
+            {...props}
+            ref={ref}
+        >
             {ratingArray.map((r, i) => <span key={i}>{r}</span>)}
+            {error && <span className={styles.errorMessage}>{error.message}</span>}
         </div>
     )
 })
