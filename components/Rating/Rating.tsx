@@ -1,15 +1,15 @@
-import { FC, useEffect, useState, KeyboardEvent } from 'react';
+import { FC, useEffect, useState, KeyboardEvent, ForwardedRef, forwardRef } from 'react';
 import cn from 'classnames';
 
 import { RatingProps } from './Rating.props';
 import styles from './Rating.module.css';
 import StarIcon from './star.svg'
 
-export const Rating: FC<RatingProps> = ({isEditable = false, rating, setRating, ...props}) => {
+export const Rating = forwardRef(({ isEditable = false, rating, setRating, ...props }: RatingProps, ref: ForwardedRef<HTMLDivElement>): JSX.Element => {
     const [ratingArray, setRatingArray] = useState<Array<JSX.Element>>(new Array(5).fill(<></>));
 
     const handleSpace = (i: number, e: KeyboardEvent<SVGElement>) => {
-        if(e.code === 'Space' && setRating) {
+        if (e.code === 'Space' && setRating) {
             setRating(i);
         }
     }
@@ -19,13 +19,13 @@ export const Rating: FC<RatingProps> = ({isEditable = false, rating, setRating, 
             return (
                 <span
                     key={i}
-                        className={cn(styles.star, {
-                            [styles.filed]: i < currentRating,
-                            [styles.editable]: isEditable
-                        })}
-                        onMouseEnter={() => changeDisplay(i + 1)}
-                        onMouseLeave={() => changeDisplay(rating)}
-                        onClick={() => onClick(i + 1)}
+                    className={cn(styles.star, {
+                        [styles.filed]: i < currentRating,
+                        [styles.editable]: isEditable
+                    })}
+                    onMouseEnter={() => changeDisplay(i + 1)}
+                    onMouseLeave={() => changeDisplay(rating)}
+                    onClick={() => onClick(i + 1)}
                 >
                     <StarIcon
                         tabIndex={isEditable ? 0 : -1}
@@ -34,7 +34,7 @@ export const Rating: FC<RatingProps> = ({isEditable = false, rating, setRating, 
                         }}
                     />
                 </span>
-                
+
             )
         });
         setRatingArray(updatedArray);
@@ -55,10 +55,14 @@ export const Rating: FC<RatingProps> = ({isEditable = false, rating, setRating, 
 
     useEffect(() => {
         constructRating(rating);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [rating])
 
-    return <div {...props}>{
-        ratingArray.map((r, i) => <span key={i}>{r}</span>)
-    }</div>
-}
+    return (
+        <div {...props} ref={ref} >
+            {ratingArray.map((r, i) => <span key={i}>{r}</span>)}
+        </div>
+    )
+})
+
+Rating.displayName = 'Rating';

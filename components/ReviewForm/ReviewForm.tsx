@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import cn from 'classnames';
+import { useForm, Controller } from 'react-hook-form';
 
 import { Rating } from '../Rating/Rating';
 import { Input } from '../Input/Input';
@@ -10,43 +11,57 @@ import { ButtonAppearance } from '../Button/Button.props';
 import CloseIcon from './close.svg';
 import { ReviewFormProps } from './ReviewForm.props';
 import styles from './ReviewForm.module.css';
+import { IReviewForm } from './ReviewForm.interface';
 
 export const ReviewForm: FC<ReviewFormProps> = ({ productId, className, ...props }) => {
 
-    const handleSubmit = (e: MouseEvent) => {
-        e.preventDefault();
+    const { register, control, handleSubmit } = useForm<IReviewForm>();
+
+    const handleFormSubmit = (data: IReviewForm) => {
+
     }
 
     return (
-        <>
-            <form className={cn(styles.reviewForm, className)} {...props}>
+        <form onSubmit={handleSubmit(handleFormSubmit)}>
+            <div className={cn(styles.reviewForm, className)}>
                 <Input
-                    name="name"
                     placeholder="name"
+                    {...register('name')}
                 />
                 <Input
                     className={styles.title}
-                    name="title"
                     placeholder="Review title"
+                    {...register('title')}
                 />
                 <div className={styles.rating}>
                     <span>Rating: </span>
-                    <Rating rating={0} />
+                    <Controller
+                        control={control}
+                        name="rating"
+                        render={({ field }) => (
+                            <Rating
+                                rating={field.value}
+                                setRating={field.onChange}
+                                ref={field.ref}
+                                isEditable
+                            />
+                        )}
+                    />
                 </div>
                 <TextArea
                     className={styles.description}
                     placeholder="Review text"
+                    {...register('description')}
                 />
                 <div className={styles.submit}>
                     <Button
                         appearance={ButtonAppearance.primary}
-                    // onClick={handleSubmit}
                     >
                         Send
                     </Button>
                     <span className={styles.info}>* We have review moderation</span>
                 </div>
-            </form>
+            </div>
             <div className={styles.success}>
                 <div className={styles.successTitle}>Your review was sended</div>
                 <div className={styles.successTitle}>
@@ -54,6 +69,6 @@ export const ReviewForm: FC<ReviewFormProps> = ({ productId, className, ...props
                 </div>
                 <CloseIcon className={styles.close} />
             </div>
-        </>
+        </form>
     )
 }
