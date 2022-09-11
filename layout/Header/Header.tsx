@@ -1,8 +1,66 @@
-import { FC } from 'react';
+import cn from 'classnames';
+import { motion } from 'framer-motion';
+import { useRouter } from 'next/router';
+
+import Logo from '../logo.svg';
+import { Sidebar } from '../Sidebar/Sidebar';
 
 import { HeaderProps } from './Header.props';
 import styles from './Header.module.css';
+import { ButtonIcon } from '../../components';
+import { useEffect, useState } from 'react';
 
-export const Header: FC<HeaderProps> = ({...props}) => {
-    return <header {...props}>Header</header>
+export const Header = ({ className, ...props }: HeaderProps): JSX.Element => {
+    const [isOpened, setIsOpened] = useState<boolean>(false);
+    const router = useRouter();
+
+    const handleMenuVisibility = () => {
+        setIsOpened((prev) => !prev);
+    }
+
+    const variants = {
+        opened: {
+            opacity: 1,
+            x: 0,
+            transition: {
+                stiffness: 20
+            }
+        },
+        closed: {
+            opacity: 1,
+            x: '100%',
+        }
+    }
+
+    useEffect(() => {
+        setIsOpened(false);
+    }, [router]);
+
+    return (
+        <header
+            className={cn(styles.header, className)}
+            {...props}
+        >
+            <Logo />
+            <ButtonIcon
+                appearance='white'
+                icon='menu'
+                onClick={handleMenuVisibility}
+            />
+            <motion.div
+                className={styles.mobileMenu}
+                variants={variants}
+                initial='closed'
+                animate={isOpened ? 'opened' : 'closed'}
+            >
+                <Sidebar />
+                <ButtonIcon
+                    className={styles.menuClose}
+                    appearance='white'
+                    icon='close'
+                    onClick={handleMenuVisibility}
+                />
+            </motion.div>
+        </header>
+    )
 }

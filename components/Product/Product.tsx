@@ -20,6 +20,7 @@ import styles from './Product.module.css';
 import { Review } from '../Review/Review';
 import { ReviewForm } from '../ReviewForm/ReviewForm';
 
+// eslint-disable-next-line react/display-name
 export const Product = motion(forwardRef(({ product, className, ...props }: ProductProps, ref: ForwardedRef<HTMLDivElement>): JSX.Element => {
 
     const [isReviewOpened, setIsReviewOpened] = useState<boolean>(false);
