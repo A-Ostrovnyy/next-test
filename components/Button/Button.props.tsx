@@ -11,7 +11,10 @@ export const enum ButtonArrow {
     none = 'none',
 }
 
-export interface ButtonProps extends DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
+//Omit for avoiding conflicts with motion.button component
+export interface ButtonProps extends
+    Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>,
+        'onAnimationStart' | 'onDragStart' | 'onDragEnd' | 'onDrag' | 'ref'> {
     children: ReactNode;
     appearance: ButtonAppearance;
     arrow?: ButtonArrow;
