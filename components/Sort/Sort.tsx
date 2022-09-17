@@ -8,22 +8,22 @@ import styles from './P.module.css';
 export const Sort: FC<SortProps> = ({ sort, setSort, className, ...props }) => {
     return (
         <div className={cn(styles.sort, className)} {...props}>
-            <span
+            <button
                 onClick={() => setSort(SortEnum.Rating)}
                 className={cn(styles.sortItem, {
                     [styles.active]: sort === SortEnum.Rating
                 })}
             >
                 <SortIcon className={styles.sortIcon} />By rating
-            </span>
-            <span
+            </button>
+            <button
                 onClick={() => setSort(SortEnum.Price)}
                 className={cn(styles.sortItem, {
                     [styles.active]: sort === SortEnum.Price
                 })}
             >
                 <SortIcon className={styles.sortIcon} />By&nbsp;price
-            </span>
+            </button>
         </div>
     )
 }
