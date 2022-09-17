@@ -15,7 +15,7 @@ import styles from './ReviewForm.module.css';
 import { IReviewForm, IReviewSentResponse } from './ReviewForm.interface';
 import { API } from '../../helpers/api';
 
-export const ReviewForm = ({ productId, className, ...props }: ReviewFormProps): JSX.Element => {
+export const ReviewForm = ({ productId, className, isOpened, ...props }: ReviewFormProps): JSX.Element => {
 
     const { register, control, handleSubmit, formState: { errors }, reset } = useForm<IReviewForm>();
     const [isSuccess, setIsSuccess] = useState<boolean>(false);
@@ -44,7 +44,7 @@ export const ReviewForm = ({ productId, className, ...props }: ReviewFormProps):
     }
 
     return (
-        <form onSubmit={handleSubmit(handleFormSubmit)}>
+        <form onSubmit={handleSubmit(handleFormSubmit)} {...props}>
             <div className={cn(styles.reviewForm, className)}>
                 <Input
                     {
@@ -58,6 +58,7 @@ export const ReviewForm = ({ productId, className, ...props }: ReviewFormProps):
                     }
                     placeholder="Name"
                     error={errors.name}
+                    tabIndex={isOpened ? 0 : -1}
                 />
                 <Input
                     className={styles.title}
@@ -70,6 +71,7 @@ export const ReviewForm = ({ productId, className, ...props }: ReviewFormProps):
                             }
                         })
                     }
+                    tabIndex={isOpened ? 0 : -1}
                     placeholder="Review title"
                     error={errors.title}
                 />
@@ -84,6 +86,7 @@ export const ReviewForm = ({ productId, className, ...props }: ReviewFormProps):
                                 setRating={field.onChange}
                                 ref={field.ref}
                                 error={errors.rating}
+                                tabIndex={isOpened ? 0 : -1}
                                 isEditable
                             />
                         )}
@@ -99,6 +102,7 @@ export const ReviewForm = ({ productId, className, ...props }: ReviewFormProps):
                     className={styles.description}
                     placeholder="Review text"
                     error={errors.description}
+                    tabIndex={isOpened ? 0 : -1}
                     {
                     ...register('description',
                         {
@@ -112,6 +116,7 @@ export const ReviewForm = ({ productId, className, ...props }: ReviewFormProps):
                 <div className={styles.submit}>
                     <Button
                         appearance={ButtonAppearance.primary}
+                        tabIndex={isOpened ? 0 : -1}
                     >
                         Send
                     </Button>
