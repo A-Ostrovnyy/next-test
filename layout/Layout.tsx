@@ -1,18 +1,43 @@
-import { FC, FunctionComponent } from 'react';
+import { FC, FunctionComponent, useState, KeyboardEvent, useRef } from 'react';
+import cn from 'classnames';
+
+import { AppContextProvider, IAppContext } from '../context/app.context';
 
 import { Header } from './Header/Header';
 import { Footer } from './Footer/Footer';
 import { Sidebar } from './Sidebar/Sidebar';
 import { LayoutProps } from './Layout.props';
 import styles from './Layout.module.css';
-import { AppContextProvider, IAppContext } from '../context/app.context';
 
 const Layout: FC<LayoutProps> = ({ children }) => {
+    const [isSkipLinkVisible, setIsSkipLinkVisible] = useState<boolean>(false);
+    const bodyRef = useRef<HTMLDivElement>(null);
+
+    const handleFocus = () => {
+        setIsSkipLinkVisible(true);
+    }
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.code === 'Enter' || e.code === 'Space') {
+            e.preventDefault();
+            bodyRef.current?.focus();
+        }
+        setIsSkipLinkVisible(false);
+    }
+
     return (
         <div className={styles.wrapper}>
+            <a
+                onFocus={handleFocus}
+                tabIndex={1}
+                className={cn(styles.skipLink, {
+                    [styles.skipLinkVisible]: isSkipLinkVisible
+                })}
+                onKeyDown={handleKeyDown}
+            >Go to content</a>
             <Header className={styles.header} />
             <Sidebar className={styles.sidebar} />
-            <div className={styles.body} >
+            <div className={styles.body} tabIndex={0} ref={bodyRef} >
                 {children}
             </div>
             <Footer className={styles.footer} />
