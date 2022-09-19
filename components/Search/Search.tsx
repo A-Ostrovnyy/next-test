@@ -45,6 +45,7 @@ export const Search: FC<SearchProps> = ({ className, ...props }) => {
                 appearance={ButtonAppearance.primary}
                 className={styles.button}
                 onClick={handleSearch}
+                aria-label="Search"
             >
                 <GlassIcon />
             </Button>

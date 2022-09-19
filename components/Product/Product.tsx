@@ -58,19 +58,27 @@ export const Product = motion(forwardRef(({ product, className, ...props }: Prod
                 {/* <Htag tag='h2' className={styles.title}>{product.title}</Htag> */}
                 <div className={styles.title}>{product.title}</div>
                 <div className={styles.price}>
+                    <span className='visually-hidden'>price</span>
                     {priceDollar(product.price)}
                     {product.oldPrice &&
                         <Tag className={styles.oldPrice} color={TagColor.green}>
+                            <span className='visually-hidden'>discount</span>
                             {priceDollar(product.price - product.oldPrice)}
                         </Tag>}
                 </div>
-                <div className={styles.credit}>{priceDollar(product.credit)}/<span className={styles.month}>month</span></div>
-                <div className={styles.rating}><Rating rating={product.reviewAvg ?? product.initialRating} /></div>
+                <div className={styles.credit}>
+                    <span className='visually-hidden'>Credit</span>
+                    {priceDollar(product.credit)}/<span className={styles.month}>month</span>
+                </div>
+                <div className={styles.rating}>
+                    <span className='visually-hidden'>{'rating' + (product.reviewAvg ?? product.initialRating)}</span>
+                    <Rating rating={product.reviewAvg ?? product.initialRating} />
+                </div>
                 <div className={styles.tags}>
                     {product.categories.map((c) => <Tag key={c} className={styles.category} color={TagColor.ghost} >{c}</Tag>)}
                 </div>
-                <div className={styles.priceTitle}>price</div>
-                <div className={styles.creditTitle}>credit</div>
+                <div className={styles.priceTitle} aria-hidden={true}>price</div>
+                <div className={styles.creditTitle} aria-hidden={true}>credit</div>
                 <div className={styles.ratingTitle}>
                     <a href="#ref" onClick={handleScrollToReview}>
                         {declOfNum(product.reviewCount, ['review', 'reviews', 'reviews'])}

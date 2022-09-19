@@ -26,3 +26,7 @@
   grid-template-columns: repeat(2, auto);
   gap: 40px;
 }
+
+.sortName {
+  display: none;
+}
