@@ -33,7 +33,7 @@ export const Search: FC<SearchProps> = ({ className, ...props }) => {
     }
 
     return (
-        <div className={cn(styles.search, className)} {...props}>
+        <form className={cn(styles.search, className)} {...props} role='search'>
             <Input
                 placeholder="Search..."
                 onChange={handleSearchChange}
@@ -49,6 +49,6 @@ export const Search: FC<SearchProps> = ({ className, ...props }) => {
             >
                 <GlassIcon />
             </Button>
-        </div>
+        </form>
     )
 }

@@ -37,9 +37,9 @@ const Layout: FC<LayoutProps> = ({ children }) => {
             >Go to content</a>
             <Header className={styles.header} />
             <Sidebar className={styles.sidebar} />
-            <div className={styles.body} tabIndex={0} ref={bodyRef} >
+            <main className={styles.body} tabIndex={0} ref={bodyRef} role='main' >
                 {children}
-            </div>
+            </main>
             <Footer className={styles.footer} />
         </div>
     )
