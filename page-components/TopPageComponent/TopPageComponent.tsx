@@ -38,9 +38,9 @@ export const TopPageComponent = ({ page, products, firstCategory }: TopPageCompo
                 }
                 <Sort sort={sort} setSort={handleSort} />
             </div>
-            <div>
-                {sortedProducts && sortedProducts.map((p) => (<Product layout product={p} key={p._id} />))}
-            </div>
+            <ul className={styles.productList}>
+                {sortedProducts && sortedProducts.map((p) => <li key={p._id} ><Product layout product={p} /></li>)}
+            </ul>
 
             <div className={styles.hhTitle}>
                 <Htag tag='h2'>Vacancies - {page.category}</Htag>
