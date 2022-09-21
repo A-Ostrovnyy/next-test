@@ -135,19 +135,32 @@ export const ReviewForm = ({ productId, className, isOpened, ...props }: ReviewF
             </div>
             {
                 isSuccess &&
-                <div className={cn(styles.success, styles.panel)}>
+                <div className={cn(styles.success, styles.panel)} role='alert'>
+                    <button
+                        onClick={handleSuccessMessageClose}
+                        className={styles.close}
+                        aria-label='close notification'
+                    >
+                        <CloseIcon />
+                    </button>
                     <div className={styles.successTitle}>Your review was sended</div>
                     <div className={styles.successTitle}>
                         Thank you! Your review will be published after moderation
                     </div>
-                    <CloseIcon onClick={handleSuccessMessageClose} className={styles.close} />
+
                 </div>
             }
             {
                 error &&
-                <div className={cn(styles.error, styles.panel)}>
+                <div className={cn(styles.error, styles.panel)} role='alert'>
+                    <button
+                        onClick={handleErrorMessageClose}
+                        className={styles.close}
+                        aria-label='close notification'
+                    >
+                        <CloseIcon />
+                    </button>
                     Something goes wrong, please try again later
-                    <CloseIcon onClick={handleErrorMessageClose} className={styles.close} />
                 </div>
             }
         </form>
