@@ -1,10 +1,8 @@
-import { FC } from 'react';
-
 import { AdvantagesProps } from './Advantages.props';
 import CheckIcon from './check.svg';
 import styles from './Advantages.module.css';
 
-export const Advantages: FC<AdvantagesProps> = ({ advantages }) => {
+export const Advantages = ({ advantages }: AdvantagesProps): JSX.Element => {
     return (
         <div className={styles.hh}>
             {

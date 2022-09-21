@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import cn from 'classnames';
 import { format } from 'date-fns';
 import { ru } from 'date-fns/locale';
@@ -9,7 +8,7 @@ import UserIcon from './user.svg';
 import { ReviewProps } from './Review.props';
 import styles from './Review.module.css';
 
-export const Review: FC<ReviewProps> = ({ review, className, children, ...props }) => {
+export const Review = ({ review, className, children, ...props }: ReviewProps): JSX.Element => {
     return (
         <article className={cn(styles.review, className)} {...props}>
             <UserIcon className={styles.userIcon} />

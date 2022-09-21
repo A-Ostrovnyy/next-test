@@ -1,4 +1,4 @@
-import { FC, FunctionComponent, useState, KeyboardEvent, useRef } from 'react';
+import { FunctionComponent, useState, KeyboardEvent, useRef } from 'react';
 import cn from 'classnames';
 
 import { AppContextProvider, IAppContext } from '../context/app.context';
@@ -9,7 +9,7 @@ import { Sidebar } from './Sidebar/Sidebar';
 import { LayoutProps } from './Layout.props';
 import styles from './Layout.module.css';
 
-const Layout: FC<LayoutProps> = ({ children }) => {
+const Layout = ({ children }: LayoutProps): JSX.Element => {
     const [isSkipLinkVisible, setIsSkipLinkVisible] = useState<boolean>(false);
     const bodyRef = useRef<HTMLDivElement>(null);
 

@@ -1,10 +1,9 @@
-import { FC } from 'react';
 import cn from 'classnames';
 
 import { TagProps, TagSize, TagColor } from './Tag.props';
 import styles from './Tag.module.css';
 
-export const Tag: FC<TagProps> = ({size = TagSize.medium, className, href, color = TagColor.ghost ,children, ...props}) => {
+export const Tag = ({ size = TagSize.medium, className, href, color = TagColor.ghost, children, ...props }: TagProps): JSX.Element => {
     const tagClassName = cn(styles.tag, className, {
         [styles.small]: size === TagSize.small,
         [styles.medium]: size === TagSize.medium,
