@@ -1,4 +1,5 @@
 import { useEffect, useReducer } from 'react';
+import { useReducedMotion } from 'framer-motion';
 
 import { Advantages, HhData, Htag, Product, Sort, Tag } from '../../components';
 import { TagColor, TagSize } from '../../components/Tag/Tag.props';
@@ -13,6 +14,7 @@ import { SortReducer } from './sort.reducer';
 export const TopPageComponent = ({ page, products, firstCategory }: TopPageComponentProps) => {
 
     const [{ products: sortedProducts, sort }, dispatchSort] = useReducer(SortReducer, { products, sort: SortEnum.Rating });
+    const shouldReducedMotion = useReducedMotion();
 
     const handleSort = (sort: SortEnum): void => {
         dispatchSort({ type: sort });
@@ -39,7 +41,7 @@ export const TopPageComponent = ({ page, products, firstCategory }: TopPageCompo
                 <Sort sort={sort} setSort={handleSort} />
             </div>
             <ul className={styles.productList}>
-                {sortedProducts && sortedProducts.map((p) => <li key={p._id} ><Product layout product={p} /></li>)}
+                {sortedProducts && sortedProducts.map((p) => <li key={p._id} ><Product layout={shouldReducedMotion ? false : true} product={p} /></li>)}
             </ul>
 
             <div className={styles.hhTitle}>

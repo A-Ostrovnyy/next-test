@@ -1,17 +1,18 @@
+import { useEffect, useState } from 'react';
 import cn from 'classnames';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { useRouter } from 'next/router';
 
 import Logo from '../logo.svg';
 import { Sidebar } from '../Sidebar/Sidebar';
+import { ButtonIcon } from '../../components';
 
 import { HeaderProps } from './Header.props';
 import styles from './Header.module.css';
-import { ButtonIcon } from '../../components';
-import { useEffect, useState } from 'react';
 
 export const Header = ({ className, ...props }: HeaderProps): JSX.Element => {
     const [isOpened, setIsOpened] = useState<boolean>(false);
+    const shouldReducedMotion = useReducedMotion();
     const router = useRouter();
 
     const handleMenuVisibility = () => {
@@ -27,7 +28,7 @@ export const Header = ({ className, ...props }: HeaderProps): JSX.Element => {
             }
         },
         closed: {
-            opacity: 1,
+            opacity: shouldReducedMotion ? 1 : 0,
             x: '100%',
         }
     }
