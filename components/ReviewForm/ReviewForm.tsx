@@ -17,7 +17,7 @@ import { API } from '../../helpers/api';
 
 export const ReviewForm = ({ productId, className, isOpened, ...props }: ReviewFormProps): JSX.Element => {
 
-    const { register, control, handleSubmit, formState: { errors }, reset } = useForm<IReviewForm>();
+    const { register, control, handleSubmit, formState: { errors }, reset, clearErrors } = useForm<IReviewForm>();
     const [isSuccess, setIsSuccess] = useState<boolean>(false);
     const [error, setError] = useState<string>('');
 
@@ -43,6 +43,10 @@ export const ReviewForm = ({ productId, className, isOpened, ...props }: ReviewF
         setError('');
     }
 
+    const handleClearErrors = () => {
+        clearErrors();
+    }
+
     return (
         <form onSubmit={handleSubmit(handleFormSubmit)} {...props}>
             <div className={cn(styles.reviewForm, className)}>
@@ -59,6 +63,7 @@ export const ReviewForm = ({ productId, className, isOpened, ...props }: ReviewF
                     placeholder="Name"
                     error={errors.name}
                     tabIndex={isOpened ? 0 : -1}
+                    aria-invalid={!!errors.name}
                 />
                 <Input
                     className={styles.title}
@@ -74,6 +79,7 @@ export const ReviewForm = ({ productId, className, isOpened, ...props }: ReviewF
                     tabIndex={isOpened ? 0 : -1}
                     placeholder="Review title"
                     error={errors.title}
+                    aria-invalid={!!errors.title}
                 />
                 <div className={styles.rating}>
                     <span>Rating: </span>
@@ -101,6 +107,7 @@ export const ReviewForm = ({ productId, className, isOpened, ...props }: ReviewF
                 <TextArea
                     className={styles.description}
                     placeholder="Review text"
+                    aria-label="Review text"
                     error={errors.description}
                     tabIndex={isOpened ? 0 : -1}
                     {
@@ -112,11 +119,14 @@ export const ReviewForm = ({ productId, className, isOpened, ...props }: ReviewF
                             }
                         })
                     }
+                    aria-invalid={!!errors.description}
+
                 />
                 <div className={styles.submit}>
                     <Button
                         appearance={ButtonAppearance.primary}
                         tabIndex={isOpened ? 0 : -1}
+                        onClick={handleClearErrors}
                     >
                         Send
                     </Button>

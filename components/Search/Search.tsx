@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { FC, useState, ChangeEvent, KeyboardEvent } from 'react';
+import { useState, ChangeEvent, KeyboardEvent } from 'react';
 import cn from 'classnames';
 
 import { Input } from '../Input/Input';
@@ -9,7 +9,7 @@ import GlassIcon from './glass.svg';
 import { SearchProps } from './Search.props';
 import styles from './Search.module.css';
 
-export const Search: FC<SearchProps> = ({ className, ...props }) => {
+export const Search = ({ className, ...props }: SearchProps): JSX.Element => {
     const [search, stSearch] = useState<string>('');
     const router = useRouter();
 
