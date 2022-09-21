@@ -1,8 +1,9 @@
 .product {
   display: grid;
   grid-template-columns:
-    [start] 70px [logoEnd] 30px [titleStart] calc(50% - 100px)
-    [middle] 1fr [priceStart] auto [priceEnd] 40px [creditStart] auto [creditEnd] 40px [ratingStart] auto [end];
+    [start] 70px [logoend] 30px [titlestart] calc(50% - 100px)
+    [middle] 1fr [pricestart] auto [priceend] 40px [creditstart] auto [creditend] 40px [ratingstart] auto [end];
+
   margin-top: 30px;
   padding: 30px;
 }
@@ -20,6 +21,7 @@
 .price,
 .priceTitle {
   grid-column: priceStart / priceEnd;
+
   white-space: nowrap;
 }
 
@@ -31,6 +33,7 @@
 .rating,
 .ratingTitle {
   grid-column: ratingStart / end;
+
   white-space: nowrap;
 }
 
@@ -41,10 +44,6 @@
 
 .features {
   grid-column: start / middle;
-}
-
-.advBlock {
-  grid-column: middle / end;
 }
 
 .actions {
@@ -66,9 +65,10 @@
 .title,
 .price,
 .credit {
+  align-self: flex-end;
+
   font-size: 20px;
   line-height: 27px;
-  align-self: flex-end;
 }
 
 .month {
@@ -87,15 +87,16 @@
 .priceTitle,
 .creditTitle,
 .ratingTitle {
-  font-weight: 300;
   font-size: 14px;
+  font-weight: 300;
   line-height: 19px;
 }
 
 .decr {
+  margin-bottom: 15px;
+
   font-size: 16px;
   line-height: 24px;
-  margin-bottom: 15px;
 }
 
 .reviewButton {
@@ -105,17 +106,20 @@
 .advBlock {
   font-size: 16px;
   line-height: 22px;
+  grid-column: middle / end;
 }
 
 .advBlockTitle {
-  font-weight: bold;
   margin-bottom: 5px;
+
+  font-weight: bold;
 }
 
 .disadvantages,
 .advantages {
-  border-left: 3px solid;
   padding-left: 15px;
+
+  border-left: 3px solid;
   border-radius: 2px;
 }
 
@@ -125,42 +129,45 @@
 
 .disadvantages {
   margin-top: 20px;
+
   border-color: (--red);
 }
 
 .characteristic {
   display: grid;
+  align-items: baseline;
+
+  padding-right: 60px;
   grid-template-columns: auto 1fr auto;
   gap: 10px;
-  padding-right: 60px;
-  align-items: baseline;
 }
 
 .characteristicName {
-  font-weight: 700;
   font-size: 16px;
+  font-weight: 700;
   line-height: 32px;
 }
 
 .characteristicValue {
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 22px;
   text-align: right;
+
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 22px;
 }
 
 .characteristicDots {
   margin: 0 0 5px;
+
   border-bottom: 1px dashed var(--grey-light);
 }
 
 .closed {
   overflow: hidden;
+
   max-height: 0;
   padding: 0;
-}
 
-.closed {
   max-height: auto;
   padding: 30px;
 }
@@ -190,6 +197,7 @@
 
   .logo {
     grid-area: logo;
+
     margin-bottom: 20px;
   }
 
@@ -211,6 +219,7 @@
 
   .tags {
     grid-area: tags;
+
     margin-bottom: 20px;
   }
 
@@ -232,6 +241,7 @@
 
   .features {
     grid-area: features;
+
     margin-bottom: 20px;
   }
 

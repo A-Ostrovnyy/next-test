@@ -1,40 +1,42 @@
 .review {
-  display: grid;
-  grid-template-columns: auto 1fr auto auto;
-  align-items: center;
-  gap: 10px;
-  line-height: 24px;
+	display: grid;
+	grid-template-columns: auto 1fr auto auto;
+
+	align-items: center;
+	gap: 10px;
+
+	line-height: 24px;
 }
 
 .description {
-  grid-column: 1 / -1;
+	grid-column: 1 / -1;
 }
 
 .date {
-  margin-right: 10px;
+	margin-right: 10px;
 }
 
 .name {
-  font-weight: 700;
+	font-weight: 700;
 }
 
 @media screen and (max-width: 640px) {
-  .review {
-    grid-template-columns: [start] 30px [titleStart] auto [dateEnd] 1fr [end];
-  }
+	.review {
+		grid-template-columns: [start] 30px [titlestart] auto [dateend] 1fr [end];
+	}
 
-  .title {
-    grid-column: titleStart / end;
-  }
+	.title {
+		grid-column: titleStart / end;
+	}
 
-  .date {
-    grid-column: start / dateEnd;
-  }
+	.date {
+		grid-column: start / dateEnd;
+	}
 }
 
 @media screen and (max-width: 640px) {
-  .rating,
-  .date {
-    grid-column: start / end;
-  }
+	.rating,
+	.date {
+		grid-column: start / end;
+	}
 }
